@@ -1,23 +1,4 @@
 /* =========================================================
-   Self-hosted fonts (fallback in case Google Fonts CDN
-   is blocked/slow — keeps the Ruqaa handwritten look reliable)
-   ========================================================= */
-@font-face{
-  font-family:"Aref Ruqaa";
-  src:url("../assets/fonts/ArefRuqaa-Regular.ttf") format("truetype");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:"Aref Ruqaa";
-  src:url("../assets/fonts/ArefRuqaa-Bold.ttf") format("truetype");
-  font-weight:700;
-  font-style:normal;
-  font-display:swap;
-}
-
-/* =========================================================
    iServe — design tokens
    ========================================================= */
 :root{
@@ -48,21 +29,6 @@
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; scroll-padding-top:90px; }
-
-@font-face{
-  font-family: "Aref Ruqaa";
-  src: url("../fonts/ArefRuqaa-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face{
-  font-family: "Aref Ruqaa";
-  src: url("../fonts/ArefRuqaa-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 body{
   margin:0;
@@ -242,6 +208,7 @@ p{ margin:0; }
   .hero-inner{ grid-template-columns: .95fr 1.05fr; gap:40px; }
 }
 
+.hero-copy{ min-width:0; }
 .hero-art{ position:relative; justify-self:center; max-width:420px; }
 .hero-art picture{ display:block; width:100%; }
 .hero-headset{
@@ -274,22 +241,23 @@ p{ margin:0; }
 }
 
 .hero-note{
-  position:relative; display:inline-block;
-  margin: 4px 0 30px; padding: 42px 78px;
-  max-width:480px;
+  position:relative; display:block;
+  margin: 4px 0 30px; padding: 22px 24px;
+  width:100%; max-width:none;
+  background: rgba(198,151,29,0.08);
+  border-radius: 20px;
 }
-.hero-note-circle{
-  position:absolute; inset:0; z-index:0; pointer-events:none;
-}
-.hero-note-circle svg{ width:100%; height:100%; display:block; }
+/* One single line that fills the whole note (size is auto-fitted in js/script.js) */
 .hero-note-text{
   position:relative; z-index:1; display:block;
+  white-space:nowrap; text-align:center;
   font-family:var(--font-hand); font-weight:700;
-  font-size:20px; line-height:1.6; color:var(--navy);
+  font-size:18px; line-height:1.6; color:var(--navy);
 }
 @media (max-width:640px){
-  .hero-note{ padding:36px 46px; max-width:none; }
-  .hero-note-text{ font-size:21px; }
+  .hero-note{ padding:22px 22px; }
+  /* On phones one line would be too tiny to read, so let it wrap and use a comfortable size */
+  .hero-note-text{ white-space:normal; font-size:19px; line-height:1.7; }
 }
 .hero h1{ font-size: clamp(34px, 5vw, 54px); font-weight:900; line-height:1.25; margin-bottom:22px; }
 .hero h1 .line{ display:block; }
