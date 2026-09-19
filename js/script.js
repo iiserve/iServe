@@ -1,9 +1,33 @@
 (() => {
   "use strict";
 
+  /* ---------- Hero note: keep the sentence on ONE line, sized to fill the note ---------- */
+  const heroNote = document.querySelector(".hero-note");
+  const heroNoteText = document.querySelector(".hero-note-text");
+  const fitHeroNote = () => {
+    if (!heroNote || !heroNoteText) return;
+    if (window.matchMedia("(max-width:640px)").matches) {
+      heroNoteText.style.fontSize = ""; /* phones: CSS handles size, text may wrap */
+      return;
+    }
+    const cs = getComputedStyle(heroNote);
+    const avail = heroNote.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    if (avail <= 0) return;
+    heroNoteText.style.display = "inline-block";
+    heroNoteText.style.fontSize = "100px";
+    const at100 = heroNoteText.getBoundingClientRect().width;
+    heroNoteText.style.display = "";
+    const size = Math.min(26, Math.floor((avail / at100) * 100 * 10) / 10);
+    heroNoteText.style.fontSize = size + "px";
+  };
+  fitHeroNote();
+  window.addEventListener("resize", fitHeroNote);
+  window.addEventListener("load", fitHeroNote);
+  document.fonts?.ready.then(fitHeroNote);
+
   /* ---------- Mobile nav toggle ---------- */
   const navToggle = document.getElementById("navToggle");
-  const mainNav   = document.getElementById("mainNav");
+  const mainNav = document.getElementById("mainNav");
 
   const closeNav = () => {
     mainNav.classList.remove("open");
@@ -65,12 +89,12 @@
 
     // Blobs of different DARK blue shades sweeping across the banner, aurora-style
     const blobs = [
-      { hue: "#050F1E", rx: 0.58, ry: 0.62, sx: 0.14, sy: 0.10, phase: 0.0  },
-      { hue: "#0A2E52", rx: 0.52, ry: 0.56, sx: 0.11, sy: 0.15, phase: 1.4  },
-      { hue: "#123C6B", rx: 0.44, ry: 0.5,  sx: 0.09, sy: 0.13, phase: 2.7  },
-      { hue: "#1E5A96", rx: 0.36, ry: 0.42, sx: 0.13, sy: 0.08, phase: 4.1  },
-      { hue: "#0D2F52", rx: 0.48, ry: 0.48, sx: 0.08, sy: 0.12, phase: 5.3  },
-      { hue: "#2B4C7E", rx: 0.30, ry: 0.30, sx: 0.15, sy: 0.10, phase: 6.0  },
+      { hue: "#050F1E", rx: 0.58, ry: 0.62, sx: 0.14, sy: 0.10, phase: 0.0 },
+      { hue: "#0A2E52", rx: 0.52, ry: 0.56, sx: 0.11, sy: 0.15, phase: 1.4 },
+      { hue: "#123C6B", rx: 0.44, ry: 0.5, sx: 0.09, sy: 0.13, phase: 2.7 },
+      { hue: "#1E5A96", rx: 0.36, ry: 0.42, sx: 0.13, sy: 0.08, phase: 4.1 },
+      { hue: "#0D2F52", rx: 0.48, ry: 0.48, sx: 0.08, sy: 0.12, phase: 5.3 },
+      { hue: "#2B4C7E", rx: 0.30, ry: 0.30, sx: 0.15, sy: 0.10, phase: 6.0 },
     ];
 
     const resize = () => {
